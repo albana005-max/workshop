@@ -3,208 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Belanja Bersama</title>
-    <!-- Import Font Modern (Inter) dari Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* === BASE STYLES === */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* Warna background abu-abu lembut ala Facebook/Twitter */
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* === CONTAINER UTAMA === */
-        .container {
-            background-color: #ffffff;
-            width: 100%;
-            max-width: 550px;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Efek melayang */
-            margin-top: 20px;
-        }
-
-        h2, h3 {
-            color: #1a1a1a;
-            margin-top: 0;
-        }
-
-        h2 { text-align: center; margin-bottom: 25px; }
-
-        /* === FORMS & INPUTS === */
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .form-group.horizontal {
-            flex-direction: row;
-        }
-
-        input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 1px solid #ced4da;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: 'Inter', sans-serif;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        input:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
-        }
-
-        /* === BUTTONS === */
-        button {
-            padding: 12px 18px;
-            font-size: 14px;
-            font-weight: 600;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Inter', sans-serif;
-        }
-        button:active { transform: scale(0.97); }
-
-        .btn-primary { background-color: #007bff; color: white; }
-        .btn-primary:hover { background-color: #0056b3; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); }
-
-        .btn-success { background-color: #10b981; color: white; }
-        .btn-success:hover { background-color: #059669; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
-
-        .btn-danger { background-color: #ef4444; color: white; }
-        .btn-danger:hover { background-color: #dc2626; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
-
-        .btn-secondary { background-color: #6b7280; color: white; padding: 8px 12px;}
-        .btn-secondary:hover { background-color: #4b5563; }
-
-        /* === USER INFO BAR === */
-        .user-info-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border: 1px solid #dee2e6;
-        }
-
-        /* === LIST ITEMS (CARD STYLE) === */
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        li {
-            padding: 15px;
-            background: #ffffff;
-            margin-bottom: 12px;
-            border-radius: 10px;
-            border: 1px solid #eaeaea;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        li:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        }
-
-        /* Khusus tampilan list di Dashboard */
-        #kumpulanDaftarUI li {
-            border-left: 5px solid #007bff;
-            font-size: 16px;
-        }
-
-        /* === SECTION UNDANGAN === */
-        .invite-section {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px dashed #ced4da;
-        }
-    </style>
+    <title>Dashboard Belanja Bersama</title>
+    <!-- Font Inter, Chart.js & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <div class="container">
-        <!-- BAGIAN 1: LAYAR LOGIN & REGISTRASI -->
-        <div id="authSection">
-            <h2>🛍️ Daftar Belanja Bersama</h2>
-            <div class="form-group">
-                <input type="email" id="inputEmail" placeholder="Email (misal: dimas@contoh.com)">
-                <input type="password" id="inputPassword" placeholder="Password (min 6 karakter)">
-            </div>
-            <div class="form-group horizontal">
-                <button id="btnLogin" class="btn-success" style="flex: 1;">Masuk</button>
-                <button id="btnRegister" class="btn-primary" style="flex: 1;">Daftar Akun Baru</button>
-            </div>
-            <p id="pesanError" style="color: #ef4444; text-align: center; font-size: 14px; margin-top: 10px;"></p>
-        </div>
 
-        <!-- BAGIAN 2: APLIKASI UTAMA (Disembunyikan saat belum login) -->
-        <div id="appSection" style="display: none;">
+    <!-- 1. HALAMAN LOGIN / AUTHENTICATION -->
+    <div id="authSection" class="auth-wrapper">
+        <div class="auth-card">
+            <i class="fa-solid fa-basket-shopping logo-icon"></i>
+            <h2>Daftar Belanja SaaS</h2>
+            <p>Kelola dan pantau pengeluaran belanja bersama tim atau keluarga.</p>
             
-            <div class="user-info-bar">
-                <span style="font-size: 14px; color: #4b5563;">Halo, <strong id="namaUser" style="color: #111827; font-size: 16px;"></strong>!</span>
-                <button id="btnLogout" class="btn-danger" style="padding: 8px 15px;">Logout</button>
+            <div class="input-group">
+                <input type="email" id="inputEmail" placeholder="Email pengguna">
             </div>
-
-            <!-- LAYAR A: DASHBOARD DAFTAR BELANJA -->
-            <div id="dashboardLayar">
-                <h3 style="border-bottom: 2px solid #f0f2f5; padding-bottom: 10px;">📋 Kumpulan Daftar Belanja</h3>
-                <div class="form-group horizontal" style="margin-top: 20px;">
-                    <input type="text" id="inputNamaDaftar" placeholder="Nama daftar baru (misal: Belanja Kos)...">
-                    <button id="btnBuatDaftar" class="btn-success">Buat Daftar</button>
-                </div>
-                <ul id="kumpulanDaftarUI"></ul>
+            <div class="input-group">
+                <input type="password" id="inputPassword" placeholder="Kata sandi (min. 6 karakter)">
             </div>
-
-            <!-- LAYAR B: DETAIL ISI BARANG -->
-            <div id="detailLayar" style="display: none;">
-                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-                    <button id="btnKembali" class="btn-secondary">&larr; Kembali</button>
-                    <h3 id="judulDaftarAktif" style="margin: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Nama Daftar</h3>
-                </div>
-
-                <!-- Bagian Mengundang Teman -->
-                <div class="invite-section">
-                    <div style="font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 8px; text-transform: uppercase;">🤝 Undang Anggota</div>
-                    <div class="form-group horizontal" style="margin-bottom: 0;">
-                        <input type="email" id="inputUndang" placeholder="Email teman...">
-                        <button id="btnUndang" class="btn-primary">Undang</button>
-                    </div>
-                </div>
-                
-                <hr style="border: 0; border-top: 1px solid #eaeaea; margin: 20px 0;">
-
-                <!-- Bagian Tambah Barang -->
-                <div class="form-group horizontal">
-                    <input type="text" id="inputBarang" placeholder="Tambahkan barang (misal: Beras 5kg)...">
-                    <button id="btnTambah" class="btn-success">Tambah</button>
-                </div>
-                <ul id="daftarBelanja"></ul>
+            
+            <div class="auth-buttons">
+                <button id="btnLogin" class="btn-primary"><i class="fa-solid fa-right-to-bracket"></i> Masuk Dashboard</button>
+                <button id="btnRegister" class="btn-outline">Daftar Akun Baru</button>
             </div>
-
+            <p id="pesanError" class="error-msg"></p>
         </div>
     </div>
 
-    <!-- Panggil file logika JS sebagai module -->
+    <!-- 2. LAYOUT DASHBOARD UTAMA -->
+    <div id="appSection" class="dashboard-wrapper">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span>BelanjaHub</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" id="menuDashboard" class="nav-item active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                
+                <!-- MENU INI HANYA MUNCUL KETIKA DALAM DAFTAR BELANJA -->
+                <a href="#" id="menuDetail" class="nav-item" style="display: none;"><i class="fa-solid fa-cart-shopping"></i> Item Belanja</a>
+                <a href="#" id="menuStatistik" class="nav-item" style="display: none;"><i class="fa-solid fa-chart-pie"></i> Statistik & Pengeluaran</a>
+            </nav>
+            
+            <div class="user-profile">
+                <div class="user-avatar"><i class="fa-regular fa-user"></i></div>
+                <div class="user-info">
+                    <span id="namaUser" class="user-name">-</span>
+                    <span class="user-role">Pengguna Aktif</span>
+                </div>
+                <button id="btnLogout" class="btn-logout" title="Keluar"><i class="fa-solid fa-right-from-bracket"></i></button>
+            </div>
+        </aside>
+
+        <!-- KONTEN UTAMA -->
+        <main class="main-content">
+            
+            <!-- TOPBAR HEADER -->
+            <header class="topbar">
+                <div class="header-title">
+                    <h1 id="pageTitle">Overview Dashboard</h1>
+                    <p id="pageSubtitle">Pantau seluruh aktivitas ringkasan belanjaan Anda.</p>
+                </div>
+            </header>
+
+            <!-- VIEW 1: DASHBOARD HOME -->
+            <div id="viewDashboard" class="content-view">
+                <div class="panel-card mb-20">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-plus-circle"></i> Buat Daftar Belanja Baru</h3>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="inputNamaDaftar" placeholder="Contoh: Belanja Mingguan Kos, Kebutuhan Rumah...">
+                        <button id="btnBuatDaftar" class="btn-primary flex-none"><i class="fa-solid fa-plus"></i> Buat Daftar</button>
+                    </div>
+                </div>
+
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-list-ul"></i> Kumpulan Daftar Belanja Anda</h3>
+                    </div>
+                    <ul id="kumpulanDaftarUI" class="data-list"></ul>
+                </div>
+            </div>
+
+            <!-- VIEW 2: DETAIL ITEM BELANJA -->
+            <div id="viewDetail" class="content-view" style="display: none;">
+                <div class="action-bar mb-20">
+                    <button id="btnKembali" class="btn-outline"><i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard</button>
+                    <button id="btnOpenUndang" class="btn-outline primary-text"><i class="fa-solid fa-user-plus"></i> Undang Anggota</button>
+                </div>
+
+                <!-- PANEL UNDANG -->
+                <div id="panelUndang" class="panel-card mb-20" style="display: none; background: #f0fdf4; border-color: var(--primary);">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-user-plus"></i> Undang Teman Kolaborasi</h3>
+                    </div>
+                    <div class="form-row">
+                        <input type="email" id="inputUndang" placeholder="Email teman...">
+                        <button id="btnUndang" class="btn-primary flex-none">Kirim Undangan</button>
+                        <button id="btnCloseUndang" class="btn-outline flex-none">Tutup</button>
+                    </div>
+                </div>
+
+                <!-- FORM INPUT & RINCIAN BARANG -->
+                <div class="panel-card mb-20">
+                    <div class="panel-header">
+                        <h3 id="labelFormItem"><i class="fa-solid fa-cart-plus"></i> Tambah Item Belanja</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="col-span-2">
+                            <input type="text" id="inputBarang" placeholder="Nama Produk / Barang">
+                        </div>
+                        <div>
+                            <input type="number" id="inputJumlah" placeholder="Jumlah" min="1" value="1">
+                        </div>
+                        <div>
+                            <select id="inputSatuan">
+                                <option value="pcs">pcs</option>
+                                <option value="kg">kg</option>
+                                <option value="liter">liter</option>
+                                <option value="pack">pack</option>
+                                <option value="box">box</option>
+                            </select>
+                        </div>
+                        <div class="col-span-2">
+                            <input type="number" id="inputHarga" placeholder="Harga Satuan (Rp)">
+                        </div>
+                        <div class="col-span-2 form-actions">
+                            <button id="btnTambah" class="btn-primary">Simpan Item</button>
+                            <button id="btnBatalEdit" class="btn-outline" style="display: none;">Batal</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-cubes"></i> Rincian Barang</h3>
+                    </div>
+                    <ul id="daftarBelanja" class="data-list"></ul>
+                </div>
+            </div>
+
+            <!-- VIEW 3: STATISTIK & PENGELUARAN (TIGA KOTAK METRIK DIPINDAHKAN KE SINI) -->
+            <div id="viewStatistik" class="content-view" style="display: none;">
+                
+                <section class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="icon-box green"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="metric-info">
+                            <span>Total Pengeluaran</span>
+                            <h3 id="metricTotalBiaya">Rp 0</h3>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="icon-box blue"><i class="fa-solid fa-check-double"></i></div>
+                        <div class="metric-info">
+                            <span>Item Selesai Dibeli</span>
+                            <h3 id="metricStatusItem">0 / 0</h3>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="icon-box orange"><i class="fa-solid fa-folder-open"></i></div>
+                        <div class="metric-info">
+                            <span>Daftar Aktif</span>
+                            <h3 id="metricTotalDaftar">0 List</h3>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-chart-column"></i> Grafik Rekap Pengeluaran Harian</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="grafikBelanja"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Script JavaScript App -->
     <script type="module" src="app.js"></script>
-    
 </body>
 </html>
